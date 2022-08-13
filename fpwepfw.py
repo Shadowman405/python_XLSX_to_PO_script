@@ -1,7 +1,7 @@
 import openpyxl
 
 file_name = ['', '' , 'ru', 'en', 'ar', 'cs', 'de', 'es', 'fi', 'fr', 'it', 'ja', 'pl', 'pt_br', 'th', 'tr', 'vi', 'zh-cn', 'zh_tw', 'ko']
-workbook = openpyxl.load_workbook('IS2 (1945) + IS2 SH Bundles.xlsx')
+workbook = openpyxl.load_workbook('')
 
 product_name = ''
 

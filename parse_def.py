@@ -50,4 +50,3 @@ def create_zip(product_code):
         for filename in filenames:
             archive.write(f'{filename}.po')
 
-#parseXLSX('Excelsior_pckg_content.xlsx', 'test_new_1')
