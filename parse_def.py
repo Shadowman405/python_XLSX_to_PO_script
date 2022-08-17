@@ -27,7 +27,7 @@ def parseXLSX(workbook_name, product_code_string, sheet_active):
     for row_3 in sheet['B4':'S4']:
         for cell in row_3:
             string = str(cell.value)
-            new_str = ' '.join(f'<li>{word}</li>' for word in string.split())
+            new_str = ' '.join(f'<li>{word}</li>' for word in string.split('\n'))
             package_content_array.append(new_str)
 
     for file in file_name:
