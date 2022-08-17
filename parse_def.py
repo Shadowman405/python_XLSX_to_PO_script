@@ -2,7 +2,7 @@ import openpyxl
 import zipfile
 import re
 
-def parseXLSX(workbook_name, product_code_string):
+def parseXLSX(workbook_name, product_code_string, sheet_active):
     file_name = ['ru', 'en', 'ar', 'cs', 'de', 'es', 'fi', 'fr', 'it', 'ja', 'pl', 'pt_br', 'th', 'tr', 'vi', 'zh_cn',
                  'zh_tw', 'ko']
     workbook = openpyxl.load_workbook(workbook_name)
@@ -10,8 +10,8 @@ def parseXLSX(workbook_name, product_code_string):
     names_array = []
     description_array = []
     package_content_array = []
-    #sheets = workbook.sheetnames
-    sheet = workbook.active
+    sheets = workbook.sheetnames
+    sheet = workbook[sheets[sheet_active]]
     counter = 0
 
     for row_1 in sheet['B2':'S2']:
@@ -20,13 +20,13 @@ def parseXLSX(workbook_name, product_code_string):
 
     for row_2 in sheet['B3':'S3']:
         for cell in row_2:
-            description_array.append(str(cell.value))
+            string = cell.value
+            new_srt = ''.join(f'</p><p>{word}' for word in string.split('\n'))
+            description_array.append(new_srt)
 
     for row_3 in sheet['B4':'S4']:
         for cell in row_3:
             string = str(cell.value)
-            string = string.replace("\r", "")
-            string = string.replace("\n", "")
             new_str = ' '.join(f'<li>{word}</li>' for word in string.split())
             package_content_array.append(new_str)
 
