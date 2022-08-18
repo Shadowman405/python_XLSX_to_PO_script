@@ -16,19 +16,28 @@ def parseXLSX(workbook_name, product_code_string, sheet_active):
 
     for row_1 in sheet['B2':'S2']:
         for cell in row_1:
-            names_array.append(str(cell.value))
+            if cell.value is None:
+                names_array.append('')
+            else:
+                names_array.append(str(cell.value))
 
     for row_2 in sheet['B3':'S3']:
         for cell in row_2:
-            string = cell.value
-            new_srt = ''.join(f'</p><p>{word}' for word in string.split('\n'))
-            description_array.append(new_srt)
+            if cell.value is None:
+                description_array.append('')
+            else:
+                string = cell.value
+                new_srt = ''.join(f'</p><p>{word}' for word in string.split('\n'))
+                description_array.append(new_srt)
 
     for row_3 in sheet['B4':'S4']:
         for cell in row_3:
-            string = str(cell.value)
-            new_str = ' '.join(f'<li>{word}</li>' for word in string.split('\n'))
-            package_content_array.append(new_str)
+            if cell.value is None:
+                package_content_array.append('')
+            else:
+                string = str(cell.value)
+                new_str = ' '.join(f'<li>{word}</li>' for word in string.split('\n'))
+                package_content_array.append(new_str)
 
     for file in file_name:
         with open(r'blueprint.po', "r+", encoding="utf-8") as f:
