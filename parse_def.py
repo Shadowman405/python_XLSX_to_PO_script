@@ -27,8 +27,10 @@ def parseXLSX(workbook_name, product_code_string, sheet_active):
                 description_array.append('')
             else:
                 string = cell.value
-                new_srt = ''.join(f'</p><p>{word}' for word in string.split('\n'))
-                description_array.append(new_srt)
+                new_str = ''.join(f'</p><p>{word}' for word in string.split('\n'))
+                new_str = new_str.replace('"', '&quot;')
+                new_str = new_str.replace("'", '&#39;')
+                description_array.append(new_str)
 
     for row_3 in sheet['B4':'S4']:
         for cell in row_3:
@@ -37,6 +39,8 @@ def parseXLSX(workbook_name, product_code_string, sheet_active):
             else:
                 string = str(cell.value)
                 new_str = ' '.join(f'<li>{word}</li>' for word in string.split('\n'))
+                new_str = new_str.replace('"', '&quot;')
+                new_str = new_str.replace("'", '&#39;')
                 package_content_array.append(new_str)
 
     for file in file_name:
@@ -58,4 +62,3 @@ def create_zip(product_code):
                      'zh_tw', 'ko']
         for filename in filenames:
             archive.write(f'{filename}.po')
-
